@@ -15,4 +15,8 @@
 *.orig
 *.bit
 *.bin
+xsim
+.pyc
+.db
+
 
