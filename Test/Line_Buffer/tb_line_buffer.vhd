@@ -66,18 +66,21 @@ begin
         reset <= '0';
         wait for 20 ns;
 
-        -- Écrire 4 pixels aux adresses 0, 1, 2, 3
-        for i in 0 to 3 loop
-            pixel_in <= std_logic_vector(to_unsigned(i*15, DEPTH));
-            write_address <= i;
-            write_enable <= '1';
-            wait for 20 ns;
-        end loop;
+-- # DEBUT DE L'ECRITURE
 
+        pixel_in <= std_logic_vector(to_unsigned(i*15, DEPTH));
+        write_address <= i;
+        write_enable <= '1';
+        wait for 20 ns;
+
+
+        
+-- # FIN DE L'ECRITURE
+        
         write_enable <= '0';
 
         wait for 100 ns;
-        -- Fin simulation
+
         assert false report "Fin simulation" severity failure;
     end process;
 

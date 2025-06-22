@@ -1,0 +1,50 @@
+a
+a
+a
+#begin
+
+  pixel_in <= std_logic_vector(to_unsigned(10, DEPTH));
+  write_address <= 0; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(20, DEPTH));
+  write_address <= 1; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(30, DEPTH));
+  write_address <= 2; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(40, DEPTH));
+  write_address <= 3; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(50, DEPTH));
+  write_address <= 4; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(60, DEPTH));
+  write_address <= 5; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(70, DEPTH));
+  write_address <= 6; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(80, DEPTH));
+  write_address <= 7; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(90, DEPTH));
+  write_address <= 8; 
+  write_enable <= '1';
+  wait for 20 ns; 
+  pixel_in <= std_logic_vector(to_unsigned(100, DEPTH));
+  write_address <= 9; 
+  write_enable <= '1';
+  wait for 20 ns; 
+
+#end
+a
+a
+a
