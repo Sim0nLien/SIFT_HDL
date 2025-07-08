@@ -18,5 +18,6 @@
 xsim
 .pyc
 .db
-
+.todo
+.dessin/
 
