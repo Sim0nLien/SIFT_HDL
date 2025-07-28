@@ -20,4 +20,5 @@ xsim
 .db
 .todo
 .dessin/
-
+.drawio
+tb_*

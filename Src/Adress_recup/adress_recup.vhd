@@ -44,6 +44,8 @@ begin
                 value_out    <= value_in;
                 valid_prev   <= '0';
                 valid_next   <= '1';
+                count      <= std_logic_vector(to_unsigned(count_int, 5));
+
 
                 -- Calcul de l'adresse selon l'index
                 if count_int < 3 then
@@ -66,7 +68,6 @@ begin
                 valid_prev <= '1';
                 valid_next <= '0';
                 value_out  <= (others => '0');
-                count      <= std_logic_vector(to_unsigned(count_int, 5));
             end if;
         end if;
     end process;
