@@ -16,6 +16,7 @@ entity line_buffer is
         pixel_in : in std_logic_vector(DEPTH - 1 downto 0);
         write_enable : in std_logic;
         write_address : in integer range 0 to HEIGHT * WIDTH - 1
+        order_address : 
     );  
 end line_buffer;
 

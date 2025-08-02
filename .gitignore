@@ -22,3 +22,8 @@ xsim
 .dessin/
 .drawio
 tb_*
+.history
+.vscode/
+SIFT
+
+
