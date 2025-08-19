@@ -19,20 +19,21 @@ architecture Behavioral of conv_sobel_horizontal is
     type state_type is (INIT, LOAD_0, LOAD_1, LOAD_2, COMPUTE);
     signal step_count : integer := 0;
 
-    signal state       : state_type := INIT;
+    signal state      : state_type := INIT;
     signal pixel_buf  : std_logic_vector(7 downto 0) := (others => '0');
     
     signal buffer_0  : unsigned(10 downto 0) := (others => '0');
     signal buffer_2  : unsigned(10 downto 0) := (others => '0');
     signal buffer_3  : unsigned(10 downto 0) := (others => '0');
     signal buffer_5  : unsigned(10 downto 0) := (others => '0');
-    signal buffer_6  : unsigned(10 downto 0) := (others => '0');-
+    signal buffer_6  : unsigned(10 downto 0) := (others => '0');
     signal buffer_8  : unsigned(10 downto 0) := (others => '0');
 
     signal buffer_line_0 : unsigned(11 downto 0) := (others => '0');
     signal buffer_line_1 : unsigned(11 downto 0) := (others => '0');
 
     signal result : signed(13 downto 0) := (others => '0');
+
 
 begin
 
@@ -61,7 +62,7 @@ begin
                             when 0 =>
                                 valid_back <= '0';
                                 if valid_in = '1' then
-                                    buffer_0 <= unsigned(pixel_in);
+                                    buffer_6 <= resize(unsigned(pixel_in), 11);
                                     step_count <= step_count + 1;
                                 end if;
 
@@ -81,7 +82,6 @@ begin
                             when 0 =>
                                 valid_back <= '0';
                                 if valid_in = '1' then
-                                    buffer_1 <= unsigned(pixel_in);
                                     step_count <= step_count + 1;
                                 end if;
 
@@ -100,7 +100,7 @@ begin
                             when 0 =>
                                 valid_back <= '0';
                                 if valid_in = '1' then
-                                    buffer_2 <= unsigned(pixel_in);
+                                    buffer_8 <= resize(unsigned (pixel_in), 11);
                                     step_count <= step_count + 1;
                                 end if;
                             
@@ -128,11 +128,15 @@ begin
                             when 1 =>
                                 result <= resize(signed(buffer_line_0) - signed(buffer_line_1), 14);
                                 step_count <= step_count + 1;
+                                buffer_0 <= buffer_3;
+                                buffer_2 <= buffer_5;
                             
                             when 2 =>
                                 result_out <= std_logic_vector(result);
                                 valid_out <= '1';
                                 state <= INIT;
+                                buffer_3 <= buffer_6;
+                                buffer_5 <= buffer_8;
                                 step_count <= 0;
 
                             when others =>
