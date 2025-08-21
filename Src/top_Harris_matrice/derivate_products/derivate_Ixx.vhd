@@ -1,0 +1,97 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.numeric_std.all;
+
+entity derivate_Ixx is
+    port (
+        clk         : in  std_logic;
+        reset       : in  std_logic;
+        valid_in    : in  std_logic;
+        Ix1          : in  std_logic_vector(12 downto 0);
+        Ix2          : in  std_logic_vector(12 downto 0);
+        Ix3          : in  std_logic_vector(12 downto 0);
+        valid_out   : out std_logic;
+        Ixx1        : out std_logic_vector(15 downto 0); -- On travail avec 16 bits à partir de maintenant
+        Ixx2        : out std_logic_vector(15 downto 0);
+        Ixx3        : out std_logic_vector(15 downto 0)
+    );
+
+end derivate_Ixx;
+
+architecture Behavioral of derivate_Ixx is
+
+    type state_type is (INIT, WAITING, COMPUTE, OUTPUT);
+    signal state : state_type := INIT;
+
+    signal Ix1_reg, Ix2_reg, Ix3_reg : signed(12 downto 0) := (others => '0');
+    signal Ixx1_reg, Ixx2_reg, Ixx3_reg : unsigned(25 downto 0) := (others => '0');
+
+begin 
+
+    process(clk)
+        begin
+            if rising_edge(clk) then
+                if reset = '1' then
+                    state <= INIT;
+                    valid_out <= '0';
+                    Ixx1_reg <= (others => '0');
+                    Ixx2_reg <= (others => '0');
+                    Ixx3_reg <= (others => '0');
+
+                else
+                    case state is
+                        when INIT =>
+                            valid_out <= '0';
+                            Ixx1_reg <= (others => '0');
+                            Ixx2_reg <= (others => '0');
+                            Ixx3_reg <= (others => '0');
+                            state <= WAITING;
+
+                        when WAITING =>
+                            valid_out <= '0';
+                            if valid_in = '1' then
+                                Ix1_reg <= signed(Ix1);
+                                Ix2_reg <= signed(Ix2);
+                                Ix3_reg <= signed(Ix3);
+                                valid_out <= '0';
+                                state <= COMPUTE;
+                            end if;
+                        
+                        when COMPUTE =>
+                            Ixx1_reg <= unsigned(Ix1_reg) * unsigned(Ix1_reg);
+                            Ixx2_reg <= unsigned(Ix2_reg) * unsigned(Ix2_reg);
+                            Ixx3_reg <= unsigned(Ix3_reg) * unsigned(Ix3_reg);
+                            valid_out <= '0';
+                            state <= OUTPUT;
+
+
+                        when OUTPUT =>
+                            valid_out <= '1';
+                            Ixx1 <= std_logic_vector(Ixx1_reg(25 downto 10));
+                            Ixx2 <= std_logic_vector(Ixx2_reg(25 downto 10));
+                            Ixx3 <= std_logic_vector(Ixx3_reg(25 downto 10));
+                            state <= WAITING;
+                           
+                    end case;
+                end if;
+            end if;
+        end process;
+end Behavioral;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
