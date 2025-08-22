@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_std.all;
 
-entity derivate_Ixx is
+entity derivate_Ixy is
     port (
         clk         : in  std_logic;
         reset       : in  std_logic;
@@ -19,9 +19,9 @@ entity derivate_Ixx is
         Ixy3        : out std_logic_vector(15 downto 0)
     );
 
-end derivate_Ixx;
+end derivate_Ixy;
 
-architecture Behavioral of derivate_Ixx is
+architecture Behavioral of derivate_Ixy is
 
     type state_type is (INIT, WAITING, COMPUTE, OUTPUT);
     signal state : state_type := INIT;
@@ -63,6 +63,8 @@ begin
                                 valid_out <= '0';
                                 state <= COMPUTE;
                             end if;
+
+                            -- TODO a vérifier je suis pas sûr pour la taille
                         
                         when COMPUTE =>
                             Ixy1_reg <= unsigned(Ix1_reg) * unsigned(Iy1_reg);
