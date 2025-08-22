@@ -35,7 +35,6 @@ begin
                 state          <= INIT;
                 Ixx_reg        <= (others => '0');
                 Iyy_reg        <= (others => '0');
-                trace_reg      <= (others => '0');
 
             else
                 case state is
@@ -43,7 +42,6 @@ begin
                     when INIT =>
                         Ixx_reg       <= (others => '0');
                         Iyy_reg       <= (others => '0');
-                        trace_reg     <= (others => '0');
                         state         <= WAITING;
 
                     when WAITING =>
@@ -58,16 +56,16 @@ begin
                         if flag = '0' then
                             flag <= '1';
                             tmp_trace_1 <= Ixx_reg + Iyy_reg;
-                            state     <= OUTPUT;
                         elsif flag = '1' then
                             tmp_trace_2 <= tmp_trace_1 * tmp_trace_1;  -- slice valide
                             state <= OUTPUT;
+                            flag <= '0';
                         end if;
 
                     when OUTPUT =>
                         valid_out <= '1';
                         trace     <= std_logic_vector(tmp_trace_2(31 downto 16));
-                    
+                        state     <= WAITING;
                     end case;
                 end if;
             end if;
