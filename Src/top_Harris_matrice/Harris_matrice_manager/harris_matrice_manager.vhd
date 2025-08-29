@@ -9,7 +9,7 @@ entity harris_matrice_manager is
         clk         : in  std_logic;
         reset       : in  std_logic;
         valid_next  : in  std_logic;
-        coord_out   : out std_logic_vector(18 downto 0); -- a vérification
+        coord_out   : out std_logic_vector(18 downto 0); -- a vérifier
         valid_out   : out std_logic
     );
 
