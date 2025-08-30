@@ -2,7 +2,9 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_std.all;
 -- note : non testé, je suppose que c'est bon
-entity derivate_Ixx is
+
+
+entity derivate_Iyy is
     port (
         clk         : in  std_logic;
         reset       : in  std_logic;
@@ -16,9 +18,9 @@ entity derivate_Ixx is
         Iyy3        : out std_logic_vector(15 downto 0)
     );
 
-end derivate_Ixx;
+end derivate_Iyy;
 
-architecture Behavioral of derivate_Ixx is
+architecture Behavioral of derivate_Iyy is
 
     type state_type is (INIT, WAITING, COMPUTE, OUTPUT);
     signal state : state_type := INIT;

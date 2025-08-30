@@ -26,9 +26,9 @@ end top_harris_matrice;
 
 architecture Behavioral of top_harris_matrice is
 
-    signal valid_derivate_Ixx : in std_logic;
-    signal valid_derivate_Ixy : in std_logic;
-    signal valid_derivate_Iyy : in std_logic;
+    signal valid_derivate_Ixx : std_logic;
+    signal valid_derivate_Ixy : std_logic;
+    signal valid_derivate_Iyy : std_logic;
 
     signal Ixx1, Ixx2, Ixx3 : std_logic_vector(15 downto 0);
     signal Ixy1, Ixy2, Ixy3 : std_logic_vector(15 downto 0);
