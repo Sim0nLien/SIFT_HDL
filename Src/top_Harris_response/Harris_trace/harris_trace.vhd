@@ -7,7 +7,8 @@ entity harris_trace is
     port (
         clk       : in  STD_LOGIC;
         reset     : in  STD_LOGIC;
-        valid_in  : in  STD_LOGIC;
+        valid_Ixx : in  STD_LOGIC;
+        valid_Iyy : in  STD_LOGIC;
         Ixx       : in  STD_LOGIC_VECTOR(15 downto 0);
         Iyy       : in  STD_LOGIC_VECTOR(15 downto 0);
         valid_out : out STD_LOGIC;
@@ -25,7 +26,10 @@ architecture Behavioral of harris_trace is
     signal tmp_trace_1        : unsigned(15 downto 0) := (others => '0');
     signal tmp_trace_2       : unsigned(31 downto 0) := (others => '0');
 
-    signal flag             : STD_LOGIC := '0';
+    signal flag_Ixx          : STD_LOGIC := '0';
+    signal flag_Iyy          : STD_LOGIC := '0';
+
+    signal flag              : STD_LOGIC := '0';
 
 begin
     process (clk)
@@ -35,6 +39,8 @@ begin
                 state          <= INIT;
                 Ixx_reg        <= (others => '0');
                 Iyy_reg        <= (others => '0');
+                flag_Ixx      <= '0';
+                flag_Iyy      <= '0';
 
             else
                 case state is
@@ -43,16 +49,26 @@ begin
                         Ixx_reg       <= (others => '0');
                         Iyy_reg       <= (others => '0');
                         state         <= WAITING;
+                        flag_Ixx     <= '0';
+                        flag_Iyy     <= '0';
 
                     when WAITING =>
                         valid_out <= '0';
-                        if valid_in = '1' then
+                        if valid_Ixx = '1' then
+                            flag_Ixx <= '1';
                             Ixx_reg <= unsigned(Ixx);
+                        end if;
+                        if valid_Iyy = '1' then
+                            flag_Iyy <= '1';
                             Iyy_reg <= unsigned(Iyy);
-                            state   <= COMPUTE;
+                        end if;
+                        if flag_Iyy = '1' and flag_Ixx = '1' then
+                            state <= COMPUTE;
                         end if;
 
                     when COMPUTE =>
+                        flag_Ixx <= '0';
+                        flag_Iyy <= '0';
                         if flag = '0' then
                             flag <= '1';
                             tmp_trace_1 <= Ixx_reg + Iyy_reg;
