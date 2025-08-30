@@ -4,23 +4,25 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity top_harris_matrice is
     port(
-        clk               : in std_logic;
-        reset             : in std_logic;
-        valid_in_manager  : in std_logic;
-        valid_in_Ix       : in std_logic;
-        valid_in_Iy       : in std_logic;
-        Ix1               : in std_logic_vector(12 downto 0);
-        Ix2               : in std_logic_vector(12 downto 0);
-        Ix3               : in std_logic_vector(12 downto 0);
-        Iy1               : in std_logic_vector(12 downto 0);
-        Iy2               : in std_logic_vector(12 downto 0);
-        Iy3               : in std_logic_vector(12 downto 0);
-        coord_out         : out std_logic_vector(18 downto 0);
-        valid_manager     : out std_logic;
-        valid_res         : out std_logic;
-        res_XX            : out std_logic_vector(15 downto 0);
-        res_XY            : out std_logic_vector(15 downto 0);
-        res_YY            : out std_logic_vector(15 downto 0)
+        clk                      : in std_logic;
+        reset                    : in std_logic;
+        valid_in_manager         : in std_logic;
+        valid_in_Ix              : in std_logic;
+        valid_in_Iy              : in std_logic;
+        Ix1                      : in std_logic_vector(12 downto 0);
+        Ix2                      : in std_logic_vector(12 downto 0);
+        Ix3                      : in std_logic_vector(12 downto 0);
+        Iy1                      : in std_logic_vector(12 downto 0);
+        Iy2                      : in std_logic_vector(12 downto 0);
+        Iy3                      : in std_logic_vector(12 downto 0);
+        coord_out                : out std_logic_vector(18 downto 0);
+        valid_manager            : out std_logic;
+        valid_gaussian_conv_Ixx  : out std_logic;
+        valid_gaussian_conv_Ixy  : out std_logic;
+        valid_gaussian_conv_Iyy  : out std_logic;
+        res_XX                   : out std_logic_vector(15 downto 0);
+        res_XY                   : out std_logic_vector(15 downto 0);
+        res_YY                   : out std_logic_vector(15 downto 0)
     );
 end top_harris_matrice;
 
