@@ -11,7 +11,7 @@ entity harris_response is
         harris_determinant : in  STD_LOGIC_VECTOR(15 downto 0);
         harris_trace       : in  STD_LOGIC_VECTOR(15 downto 0);
         valid_out          : out STD_LOGIC;
-        output             : out STD_LOGIC_VECTOR(15 downto 0)
+        out_result             : out STD_LOGIC_VECTOR(15 downto 0)
     );
 end harris_response;
 
@@ -46,7 +46,7 @@ begin
                 trace_reg        <= (others => '0');
                 response_reg     <= (others => '0');
                 valid_out        <= '0';
-                output  <= (others => '0');
+                out_result  <= (others => '0');
                 count            <= 0;
 
             else
@@ -97,7 +97,7 @@ begin
                         end if;
 
                     when OUTPUT =>
-                        output <= std_logic_vector(response_reg);
+                        out_result <= std_logic_vector(response_reg);
                         valid_out       <= '1';
                         next_state      <= WAITING;
 

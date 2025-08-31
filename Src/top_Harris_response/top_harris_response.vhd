@@ -56,14 +56,14 @@ begin
 
     harris_response_inst : entity work.harris_response
         port map(
-            clk        => clk,
-            reset      => reset,
-            valid_det  => valid_det,
-            valid_tra  => valid_tra,
-            determinant => determinant,
-            trace      => trace,
-            valid_out  => valid_out,
-            out_result => out_result
+            clk                => clk,
+            reset              => reset,
+            valid_determinant  => valid_det,
+            valid_trace        => valid_tra,
+            harris_determinant => determinant,
+            harris_trace       => trace,
+            valid_out          => valid_out,
+            out_result         => out_result
         );
 
 end Behavioral;
