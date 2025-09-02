@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-
+-- Function all_addrs, not tested yet
 entity top30_sorter is
     generic(
         DATA_WIDTH : integer := 16;
@@ -15,9 +15,11 @@ entity top30_sorter is
         valid_in      : in  STD_LOGIC;
         data_in       : in  STD_LOGIC_VECTOR(15 downto 0);
         addr_in       : in STD_LOGIC_VECTOR(ADDR_WIDTH-1 downto 0);
+        give_data     : in  STD_LOGIC; -- Turn on when you want get all data & addr
         valid_out     : out STD_LOGIC;
         data_out      : out STD_LOGIC_VECTOR(15 downto 0);
         addr_out      : out STD_LOGIC_VECTOR(ADDR_WIDTH-1 downto 0)
+        all_addrs     : out STD_LOGIC_VECTOR((NB_DATA*ADDR_WIDTH)-1 downto 0)
     );
 end top30_sorter;
 
