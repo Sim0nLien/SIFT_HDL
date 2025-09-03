@@ -2,7 +2,8 @@
 
 This project implements the **SIFT (Scale Invariant Feature Transform)** algorithm in VHDL.  
 Currently, only the **Harris Descriptor** stage is implemented.  
-The goal is to provide a hardware-accelerated solution for feature detection and description in images.
+The goal is to provide a hardware-accelerated solution for feature detection and description in images. 
+More information can be found in the [specification document](./Docs/specification.md).
 
 ## Current Status
 

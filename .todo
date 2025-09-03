@@ -1,10 +1,7 @@
-Pour vendredi :
+- Need make Sobel clean
+- Need make Top Sobel 
 
-- Réaliser Harris Response
-- Faire les tops-levels
-- Faire recherche maximum
+- Find best solution to put all timing
+- Measure timing of all blocs
 
-Sur le long terme :
-
-- Ajouter deux états pour diminuer les dangers
-- Refaire les convolutions du début
+- Write all documentations 

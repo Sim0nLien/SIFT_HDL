@@ -6,7 +6,7 @@ entity top_harris_matrice is
     port(
         clk                      : in std_logic;
         reset                    : in std_logic;
-        valid_in_manager         : in std_logic;
+         valid_in_manager         : in std_logic;
         valid_in_Ix              : in std_logic;
         valid_in_Iy              : in std_logic;
         Ix1                      : in std_logic_vector(12 downto 0);
