@@ -14,7 +14,7 @@ entity read_image is
         data_out_3  : out std_logic_vector(8 downto 0)
     );
 end read_image;
-
+  
 architecture Behavioral of read_image is
     type state_type is (INIT, WAITING, OUTPUT_1, OUTPUT_2, OUTPUT_3);
     signal state : state_type := INIT;
@@ -59,7 +59,9 @@ begin
                     when WAITING =>
                         valid_out <= '0';
                         if valid_in = '1' then
-                            
+                           state <= OUTPUT_1;
+                           pixel_1 <= unsigned(data_in);
+                           addr_pix_1 <= addr_pix_1 + 1;
 
 
 
