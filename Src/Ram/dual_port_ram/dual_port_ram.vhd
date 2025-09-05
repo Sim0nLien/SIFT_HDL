@@ -14,8 +14,8 @@ entity dual_port_ram is
         valid_write : in  std_logic;
         valid_read  : in  std_logic;
         addr_write  : in std_logic_vector(18 downto 0); -- On prend le cas ou toute l'image est enregistrée
-        addr_read   : in std_logic_vector(18 downto 0);
         data_write  : in std_logic_vector(7 downto 0);
+        addr_read   : out std_logic_vector(18 downto 0);
         data_read   : out std_logic_vector(7 downto 0);
     );
 end entity dual_port_ram;
