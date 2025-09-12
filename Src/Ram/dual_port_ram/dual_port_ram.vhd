@@ -1,6 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Dans ce module, je pars du principe que la RAM est suffisamment grande pour pouvoir enregistrer l'image, bien que je sache que cela soit un choix discutable.
 
@@ -9,14 +9,14 @@ entity dual_port_ram is
         DATA_WIDTH : integer := 8;
         ADDR_WIDTH : integer := 18
     );
-    port (
-        clk       : in  std_logic;
+    port(
+        clk         : in  std_logic;
         valid_write : in  std_logic;
         valid_read  : in  std_logic;
-        addr_write  : in std_logic_vector(18 downto 0); -- On prend le cas ou toute l'image est enregistrée
+        addr_write  : in std_logic_vector(17 downto 0); -- On prend le cas ou toute l'image est enregistrée
         data_write  : in std_logic_vector(7 downto 0);
-        addr_read   : out std_logic_vector(18 downto 0);
-        data_read   : out std_logic_vector(7 downto 0);
+        addr_read   : in std_logic_vector(17 downto 0);
+        data_read   : out std_logic_vector(7 downto 0)
     );
 end entity dual_port_ram;
 

@@ -1,16 +1,17 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
 
 entity write_image is
     port(
         clk         : in  std_logic;
         reset       : in  std_logic;
         valid_in    : in std_logic;
-        data_in     : in std_logic_vector(8 downto 0);
+        data_in     : in std_logic_vector(7 downto 0);
         valid_out   : out std_logic;
-        data_out    : out std_logic_vector(18 downto 0)
-        addrs_out   : out std_logic_vector(18 downto 0)
+        data_out    : out std_logic_vector(17 downto 0);
+        addr_out   : out std_logic_vector(17 downto 0)
     );
 end write_image;
 
@@ -56,12 +57,12 @@ begin
                 when OUTPUT =>
                     valid_out <= '1';
                     data_out <= std_logic_vector(data_pix);
-                    addrs_out <= std_logic_vector(addr_pix);
+                    addr_out <= std_logic_vector(addr_pix);
                     state <= WAITING;
                     if addr_pix = to_unsigned(512*512, 19) then
                         state <= INIT;
                     end if;
-                end case
+                end case;
             end if;
         end if;
     end process;
