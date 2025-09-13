@@ -38,7 +38,7 @@ begin
                reset => reset,
                valid_in => valid_write,
                data_in => data_write,
-               valid_out => valid_ram_read,
+               valid_out => valid_write_ram,
                data_out => data_write_ram,
                addr_out => addr_write_ram
         );
@@ -51,10 +51,11 @@ begin
         port map(
                 clk => clk,
                 valid_write => valid_write_ram,
-                valid_read => valid_read_ram,
+                valid_read_in => valid_read_ram,
                 addr_write => addr_write_ram,
                 data_write => data_write_ram,
-                addr_read => addr_ram_read,
+                addr_read => addr_read_ram,
+                valid_read_out => valid_ram_read,
                 data_read => data_ram_read
         );
 
@@ -66,7 +67,7 @@ begin
                 valid_manager_in => valid_manager,
                 data_in => data_ram_read,
                 addr_manager => addr_manager,
-                valid_ram_out => valid_ram_read,
+                valid_ram_out => valid_read_ram,
                 valid_mem_out => valid_out,
                 addr_order => addr_read_ram,
                 addr_out => addr_out,

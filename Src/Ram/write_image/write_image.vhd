@@ -10,7 +10,7 @@ entity write_image is
         valid_in    : in std_logic;
         data_in     : in std_logic_vector(7 downto 0);
         valid_out   : out std_logic;
-        data_out    : out std_logic_vector(17 downto 0);
+        data_out    : out std_logic_vector(7 downto 0);
         addr_out   : out std_logic_vector(17 downto 0)
     );
 end write_image;
