@@ -19,15 +19,15 @@ end add;
 
 architecture Behavioral of add is
 
-    state_type is (init, wait, compute, output);
-    state : state_type := init;
+    type state_type is (INIT, WAITING, COMPUTE, OUTPUT);
+    signal state : state_type := INIT;
 
     signal flag_1   : STD_LOGIC := '0';
     signal flag_2   : STD_LOGIC := '0';
 
     signal data_mem_1 : signed(13 downto 0) := (others => '0');
     signal data_mem_2 : signed(13 downto 0) := (others => '0');
-    signal result   : signed(13 downto 0) := (others => '0');
+    signal mem_result   : signed(13 downto 0) := (others => '0');
 
 begin 
 
@@ -35,7 +35,7 @@ begin
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                state <= init;
+                state <= INIT;
                 result <= (others => '0');
                 addr_out <= (others => '0');
                 valid_out <= '0';
@@ -43,37 +43,41 @@ begin
                 flag_2 <= '0';
             else
                 case state is
-                    when init =>
-                        state <= wait;
+                    when INIT =>
+               state <= WAITING;
+                        mem_result <= (others => '0');
                         result <= (others => '0');
                         addr_out <= (others => '0');
                         valid_out <= '0';
                         flag_1 <= '0';
                         flag_2 <= '0';
 
-                    when wait =>
+                    when WAITING =>
+                        valid_out <= '0';
                         if valid_1 = '1' then
                             flag_1 <= '1';
-                            data_mem_1 <= signed(data_1);
+                            data_mem_1 <= resize(signed(data_1),14);
                         end if;
                         if valid_2 = '1' then
                             flag_2 <= '1';
-                            data_mem_2 <= signed(data_2);
+                            data_mem_2 <= resize(signed(data_2),14);
                         end if;
                         if flag_1 = '1' and flag_2 = '1' then
                             state <= compute;
                         end if;
 
-                    when compute =>
+                    when COMPUTE =>
                         mem_result <= data_mem_1 - data_mem_2;
+                        flag_1 <= '0';
+                        flag_2 <= '0';
                         addr_out <= addr_in;
-                        valid_out <= '1';
-                        state <= output;
+                        state <= OUTPUT;
 
                     when output =>
-                        if valid_out = '0' then
-                            state <= wait;
-                        end if;
+                        valid_out <= '1';
+                        result <= std_logic_vector(mem_result);
+                        state <= WAITING;
+                        
                 end case;
             end if;
         end if;
