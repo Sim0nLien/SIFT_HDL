@@ -1,7 +1,9 @@
-- Need make Sobel clean
-- Need make Top Sobel 
+Finir Sobel
 
-- Find best solution to put all timing
-- Measure timing of all blocs
 
-- Write all documentations 
+Commencer à penser à réaliser la simulation BA avant de faire tous gros top
+Penser à faire des sous top afin de faciliter un peu les architectures
+Penser a commencer à écrire la doc
+Faire un peu le tri dans les fichiers
+Virer ce qui ne sert a rien
+commencer à regarder le TCP

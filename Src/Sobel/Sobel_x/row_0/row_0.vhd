@@ -55,6 +55,7 @@ begin
                         addr_out <= (others => '0');
                         
                     when state_1 =>
+                        valid_out <= '0';
                         if valid_in = '1' then
                             data_1 <= resize(unsigned(data_in), 13);
                             state <= state_2;
