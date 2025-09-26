@@ -28,3 +28,9 @@ SIFT
 .Harris_HLS/
 me.txt
 drawio/
+*.xpr
+*.wpc
+*.wdf
+*.lpr
+*.db
+
