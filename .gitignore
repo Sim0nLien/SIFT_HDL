@@ -24,7 +24,6 @@ xsim
 tb_*
 .history
 .vscode/
-SIFT
 Harris_HLS/
 me.txt
 drawio/
@@ -33,4 +32,4 @@ drawio/
 *.wdf
 *.lpr
 *.db
-
+SIFT/
