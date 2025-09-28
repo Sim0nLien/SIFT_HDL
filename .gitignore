@@ -33,3 +33,7 @@ drawio/
 *.lpr
 *.db
 SIFT/
+sim_build/
+*.pyc
+log_result.txt
+*.xml
