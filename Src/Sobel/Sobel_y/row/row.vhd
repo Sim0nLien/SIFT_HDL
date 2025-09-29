@@ -4,7 +4,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 -- Ici le bloc va fonctionner avec un moins en mode plus puis moins afin de travailler avec 2 temps puis le bloc final on est sur 3 temps
 
-entity column is
+entity row is
     Port ( clk          : in STD_LOGIC;
            reset        : in STD_LOGIC;
            valid_in     : in STD_LOGIC;
@@ -14,9 +14,9 @@ entity column is
            data_out     : out STD_LOGIC_VECTOR (12 downto 0);
            addr_out     : out STD_LOGIC_VECTOR (17 downto 0)
            );
-end column;
+end row;
 
-architecture Behavioral of column is
+architecture Behavioral of row is
 
     type state_type is (init, state_1, state_2, state_3, compute, output);
     signal state     : state_type := init;

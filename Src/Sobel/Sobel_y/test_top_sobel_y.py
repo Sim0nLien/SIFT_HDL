@@ -20,6 +20,7 @@ def extract_all_stimuli(json_data):
 
 vecteur_test_1 = np.random.uniform(0, 2**7, 300).astype(int)
 vecteur_test_2 = np.random.uniform(0, 2**7, 300).astype(int)
+vecteur_test_3 = np.random.uniform(0, 2**7, 300).astype(int)
 
 
 async def run_stimuli(dut):
@@ -36,18 +37,24 @@ async def run_stimuli(dut):
         print(f"Value_1 : {vecteur_test_1[i]}, Value_2 : {vecteur_test_2[i]}")
         
 
-        dut.data_1_in.value = int(vecteur_test_1[i])
-        dut.valid_data_1_in.value = 1
+        dut.data_in_1.value = int(vecteur_test_1[i])
+        dut.valid_in_1.value = 1
 
         await RisingEdge(dut.clk)
 
-        dut.data_2_in.value = int(vecteur_test_2[i])
-        dut.valid_data_2_in.value = 1
+        dut.valid_in_1.value = 0
+        dut.data_in_2.value = int(vecteur_test_2[i])
+        dut.valid_in_2.value = 1
 
         await RisingEdge(dut.clk)
 
-        dut.valid_data_1_in.value = 0
-        dut.valid_data_2_in.value = 0
+        dut.valid_in_2.value = 0
+        dut.data_in_3.value = int(vecteur_test_3[i])
+        dut.valid_in_3.value = 1
+
+        await RisingEdge(dut.clk)
+
+        dut.valid_in_3.value = 0
 
         await RisingEdge(dut.clk)
         
@@ -56,9 +63,11 @@ async def run_stimuli(dut):
             
             await with_timeout(RisingEdge(dut.valid_out), 600, 'ns')
 
-            tmp_1 = vecteur_test_1[i - 2] + 2 * vecteur_test_1[i - 1] + vecteur_test_1[i] 
-            tmp_2 = vecteur_test_2[i - 2] + 2 * vecteur_test_2[i - 1] + vecteur_test_2[i]
-            expected_sum = tmp_1 - tmp_2
+            tmp_1 = vecteur_test_1[i - 2] - vecteur_test_1[i] 
+            tmp_2 = vecteur_test_2[i - 2] - vecteur_test_2[i]
+            tmp_3 = vecteur_test_3[i - 2] - vecteur_test_3[i]
+
+            expected_sum = tmp_1 + 2 * tmp_2 + tmp_3
 
             expected_bits = Bits(int=expected_sum, length=14)
             got_bits      = Bits(bin=dut.data_out.value.binstr, length=14)
@@ -78,6 +87,7 @@ async def run_stimuli(dut):
                     f.write("FAIL\n")  # Red FAIL
                 f.write(f"data_test: {vecteur_test_1[i - 2]}, {vecteur_test_1[i - 1]}, {vecteur_test_1[i]} \n")
                 f.write(f"data_test: {vecteur_test_2[i - 2]}, {vecteur_test_2[i - 1]}, {vecteur_test_2[i]} \n")
+                f.write(f"data_test: {vecteur_test_3[i - 2]}, {vecteur_test_3[i - 1]}, {vecteur_test_3[i]} \n")
 
                 
                 f.write(f"Expected sum: {expected_sum}, Got sum: {got_sum}\n")
@@ -89,7 +99,7 @@ async def run_stimuli(dut):
 
 
 @cocotb.test()
-async def test_add(dut):
+async def test_top_sobel_y(dut):
     """Test principal avec timeout global"""
     cocotb.start_soon(Clock(dut.clk, 10, unit="ns").start())
 

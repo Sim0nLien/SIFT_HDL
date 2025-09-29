@@ -15,7 +15,7 @@ entity add_y is
            addr_in      : in STD_LOGIC_VECTOR (17 downto 0);
            valid_out    : out STD_LOGIC;
            data_out     : out STD_LOGIC_VECTOR (13 downto 0);
-           addr_out     : out STD_LOGIC_VECTOR (17 downto 0);
+           addr_out     : out STD_LOGIC_VECTOR (17 downto 0)
     );
 end add_y;
 
@@ -80,7 +80,7 @@ begin
                         end if;
                         
                     when COMPUTE =>
-                        result <= data_1 + data_2 + data_3;
+                        result <= resize(data_1 + 2 * data_2 + data_3, 14);
                         state <= OUTPUT;
                         
                     when OUTPUT =>
@@ -95,5 +95,5 @@ begin
             end if;          
         end if;
     end process;
-end Behvioral;
+end Behavioral;
 

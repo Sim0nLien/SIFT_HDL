@@ -37,3 +37,4 @@ sim_build/
 *.pyc
 log_result.txt
 *.xml
+*.ghw
